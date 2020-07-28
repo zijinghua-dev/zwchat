@@ -1,0 +1,27 @@
+{
+    "name": "zijinghua_dev/zwechat",
+    "type": "library",
+    "authors": [
+        {
+            "name": "冯亮",
+            "email": "feng.liang@evebit.cn"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Zijinghua\\Zwechat\\": "./src"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "overtrue/socialite": "^2.0.16",
+        "nesbot/carbon": "^2.0.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Zijinghua\\Zwechat\\ServiceProvider"
+            ]
+        }
+    }
+}
