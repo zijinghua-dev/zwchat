@@ -8,4 +8,7 @@ return [
             'app_secret' => ''
         ]
     ],
+    'api' => [
+        'sns' => 'https://api.weixin.qq.com/sns'
+    ]
 ];

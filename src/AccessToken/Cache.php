@@ -66,7 +66,7 @@ trait Cache
      */
     protected function refreshAccessToken()
     {
-        $response = (new Client())->get($this->baseUrl.'/oauth2/refresh_token', [
+        $response = (new Client())->get(config('wechat.api.sns').'/oauth2/refresh_token', [
             'query' => array_filter([
                 'refresh_token' => $this->getRefreshToken(),
                 'grant_type' => 'refresh_token',

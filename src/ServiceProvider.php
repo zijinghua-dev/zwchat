@@ -10,5 +10,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
                 realpath(__DIR__.'/../publishable/config/wechat.php') => config_path('wechat.php')
             ], 'config');
         }
+        $this->loadRoutesFrom(realpath(__DIR__.'/../publishable/routes/api.php'));
     }
 }

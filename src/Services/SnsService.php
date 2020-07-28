@@ -2,6 +2,7 @@
 namespace Zijinghua\Zwechat\Services;
 
 use Overtrue\Socialite\AuthorizeFailedException;
+use Overtrue\Socialite\InvalidArgumentException;
 use \Zijinghua\Zwechat\AccessToken\Cache;
 use Zijinghua\Zwechat\Exception\InvalidAuthorizeScopeException;
 
@@ -15,7 +16,7 @@ class SnsService extends \Overtrue\Socialite\Providers\WeChatProvider
 
     protected $code;
 
-    public function __construct($appId, $code)
+    public function __construct($appId)
     {
         $config = \Zijinghua\Zwechat\WechatTrait::getConfigByAppId($appId);
         if (!isset($config['app_secret'])) {
@@ -23,7 +24,6 @@ class SnsService extends \Overtrue\Socialite\Providers\WeChatProvider
         }
         parent::__construct(request(), $appId, $config['app_secret']);
         $this->setAppId($appId);
-        $this->code = $code;
     }
 
     /**
@@ -40,10 +40,11 @@ class SnsService extends \Overtrue\Socialite\Providers\WeChatProvider
 
     /**
      * 获取微信open id
-     * @return string|null
+     * @return string
      */
-    public function getOpenId()
+    public function getOpenId($code)
     {
+        $this->code = $code;
         $accessToken = $this->getAccessToken($this->code);
         return $accessToken->openid;
     }
@@ -67,8 +68,12 @@ class SnsService extends \Overtrue\Socialite\Providers\WeChatProvider
      * @return string
      * @throws InvalidAuthorizeScopeException
      */
-    public function getUnionId($openId=null)
+    public function getUnionId($openId=null, $code=null)
     {
+        if (!$openId && !$code) {
+            throw new InvalidArgumentException('参数openId和code不能同时为空');
+        }
+        $this->code = $code;
         $cache = $this->get()?:[];
         $token = null;
         if (!empty($cache) && $openId) {

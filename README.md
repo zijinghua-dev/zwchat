@@ -4,3 +4,11 @@
 (3) 实例化$snsService = new Zijinghua\Zwechat\Services\SnsService($appId, $code)。
 调SnsService的getOpenId方法可获取openid。调用getUnionId可获取unionid,如果已经有openid，建议传入openid，
 避免调两次微信接口 
+
+#目前提供如下API接口，在使用一下API接口时，依然要执行上述步骤(1)(2)
+(1) uri：api/zijinghua/wechat/open-id。请求方式GET。请求参数：app_id：应用的app id；code：微信授权code\
+(2) uri：api/zijinghua/wechat/union-id。请求方式GET。
+请求参数：
+app_id：应用的app id；
+code：微信授权code；
+open_id：微信openid，code和open_id可以二选一
