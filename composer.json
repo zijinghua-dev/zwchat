@@ -12,6 +12,7 @@
             "Zijinghua\\Zwechat\\": "./src"
         }
     },
+    "license": "MIT",
     "minimum-stability": "dev",
     "require": {
         "overtrue/socialite": "^2.0.16",
