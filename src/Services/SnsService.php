@@ -3,7 +3,7 @@ namespace Zijinghua\Zwechat\Services;
 
 use Overtrue\Socialite\AuthorizeFailedException;
 use Overtrue\Socialite\InvalidArgumentException;
-use \Zijinghua\Zwechat\AccessToken\Cache;
+use \Zijinghua\Zwechat\AccessToken\AuthorizeCache;
 use Zijinghua\Zwechat\Exception\InvalidAuthorizeScopeException;
 
 /**
@@ -12,7 +12,7 @@ use Zijinghua\Zwechat\Exception\InvalidAuthorizeScopeException;
  */
 class SnsService extends \Overtrue\Socialite\Providers\WeChatProvider
 {
-    use Cache;
+    use AuthorizeCache;
 
     protected $code;
 
@@ -20,7 +20,7 @@ class SnsService extends \Overtrue\Socialite\Providers\WeChatProvider
     {
         $config = \Zijinghua\Zwechat\WechatTrait::getConfigByAppId($appId);
         if (!isset($config['app_secret'])) {
-            throw new \Overtrue\Socialite\InvalidArgumentException('请配置app_id:'.$appId.'对应的app_secret');
+            throw new \Overtrue\Socialite\InvalidArgumentException('请wechat.php中配置app_id:'.$appId.'对应的app_secret');
         }
         parent::__construct(request(), $appId, $config['app_secret']);
         $this->setAppId($appId);
@@ -64,8 +64,9 @@ class SnsService extends \Overtrue\Socialite\Providers\WeChatProvider
     }
 
     /**
-     * @param string|null $openId
-     * @return string
+     * @param null $openId
+     * @param null $code
+     * @return array
      * @throws InvalidAuthorizeScopeException
      */
     public function getUnionId($openId=null, $code=null)
@@ -84,6 +85,6 @@ class SnsService extends \Overtrue\Socialite\Providers\WeChatProvider
         $user = $this->user($token);
         $this->put($user->getOriginal());
         isset($user->getOriginal()['scope']) && $this->invalidAuthorizeScopeException($user->getOriginal()['scope']);
-        return @$user->getOriginal()['unionid'];
+        return $user->getOriginal();
     }
 }

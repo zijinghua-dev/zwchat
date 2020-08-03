@@ -7,10 +7,14 @@ use Overtrue\Socialite\AccessToken;
 use Overtrue\Socialite\AccessTokenInterface;
 use \Illuminate\Support\Facades\Cache as LaravelCache;
 
-trait Cache
+/**
+ * Trait AuthorizeCache 是用于缓存网页授权access_token，此access_token可用于拉取用户信息
+ * @package Zijinghua\Zwechat\AccessToken
+ */
+trait AuthorizeCache
 {
     protected $appId = null;
-    protected $prefix = 'wechat.access_token.';
+    protected $prefix = 'wechat.authorize.access_token.';
     protected $baseUrl = 'https://api.weixin.qq.com/sns';
     /**
      * @param null $appId
