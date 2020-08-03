@@ -1,4 +1,4 @@
-#初始化工作
+#初始化工作\
 (1)使用php artisan vendor:pulish --provider='Zijinghua\Zwechat\ServiceProvider'发布包\
 (2)根据实际需要，在config目录下的wechat.php的apps配置中添加你的app_id、app_secret\
 
