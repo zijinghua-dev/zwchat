@@ -10,5 +10,8 @@ return [
     ],
     'api' => [
         'sns' => 'https://api.weixin.qq.com/sns'
+    ],
+    'jssdk' => [
+        'debug' => env('WECHAT_JSSDK_DEBUG', false)
     ]
 ];
