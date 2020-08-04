@@ -40,7 +40,7 @@ trait AuthorizeCache
             return false;
         }
 
-        $carbon = Carbon::createFromFormat('Y-m-d H:i:s', $token['expired_at']);
+        $carbon = Carbon::createFromFormat('Y-m-d H:i:s', $token['expired_at'])->subMinutes(10);
         return !$carbon->gte(Carbon::now());
     }
 
@@ -54,8 +54,10 @@ trait AuthorizeCache
         if (isset($token['expires_in'])) {
             $token['expired_at'] = Carbon::now()->addSeconds($token['expires_in'])->format('Y-m-d H:i:s');
         }
-
-        return LaravelCache::put($this->prefix.$this->appId, json_encode($token));
+        if (isset($token['access_token'])) {
+            return LaravelCache::put($this->prefix.$this->appId, json_encode($token));
+        }
+        return false;
     }
 
     protected function getRefreshToken()
@@ -78,9 +80,12 @@ trait AuthorizeCache
             ]),
         ]);
 
-        $response = $response->getBody();
-        LaravelCache::put($this->prefix.$this->appId, $response);
-        return json_decode($response, true);
+        $response = json_decode($response->getBody()->getContents(), true);
+        if (is_array($response)) {
+            $this->put($response);
+        }
+
+        return $response;
     }
 
     /**

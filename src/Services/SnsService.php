@@ -46,6 +46,7 @@ class SnsService extends \Overtrue\Socialite\Providers\WeChatProvider
     {
         $this->code = $code;
         $accessToken = $this->getAccessToken($this->code);
+
         return $accessToken->openid;
     }
 
@@ -79,11 +80,11 @@ class SnsService extends \Overtrue\Socialite\Providers\WeChatProvider
         $token = null;
         if (!empty($cache) && $openId) {
             $openId && $cache['openid'] = $openId;
+
             $token = new \Overtrue\Socialite\AccessToken($cache);
         }
 
         $user = $this->user($token);
-        $this->put($user->getOriginal());
         isset($user->getOriginal()['scope']) && $this->invalidAuthorizeScopeException($user->getOriginal()['scope']);
         return $user->getOriginal();
     }

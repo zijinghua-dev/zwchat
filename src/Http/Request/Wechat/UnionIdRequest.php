@@ -23,11 +23,8 @@ class UnionIdRequest extends FormRequest
                 'in:'.implode(',', array_column(config('wechat.apps'), 'app_id'))
             ],
             'code' => [
-                'required_without:open_id'
-            ],
-            'open_id' => [
-                'required_without:code'
-            ],
+                'required'
+            ]
         ];
     }
 
