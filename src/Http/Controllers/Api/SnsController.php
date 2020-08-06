@@ -1,6 +1,7 @@
 <?php
 namespace Zijinghua\Zwechat\Http\Controllers\Api;
 
+use Overtrue\Socialite\AuthorizeFailedException;
 use Zijinghua\Zwechat\Http\Request\Wechat\OpenIdRequest;
 use Zijinghua\Zwechat\Http\Request\Wechat\UnionIdRequest;
 use Zijinghua\Zwechat\Services\SnsService;
@@ -18,8 +19,20 @@ class SnsController extends \Illuminate\Routing\Controller
      */
     public function openId(OpenIdRequest $request)
     {
-        $service = new SnsService(request('app_id'));
-        return response()->json(['open_id' => $service->getOpenId(request('code'))]);
+        try {
+            $service = new SnsService(request('app_id'));
+            return response()->json(['open_id' => $service->getOpenId(request('code'))]);
+        } catch (AuthorizeFailedException $e) {
+            $body = $e->body;
+            $response = [
+                'message' => @$body['errmsg'],
+                'errors' => [
+                    'code' => config('wechat.errors.'.@$body['errcode']),
+                    'message' => @$body['errmsg']
+                ]
+            ];
+            return response()->json($response, 500);
+        }
     }
 
     /**
@@ -30,8 +43,20 @@ class SnsController extends \Illuminate\Routing\Controller
      */
     public function unionId(UnionIdRequest $request)
     {
-        $service = new SnsService(request('app_id'));
-        return response()->json($service->getUnionId(request('open_id'), request('code')));
+        try {
+            $service = new SnsService(request('app_id'));
+            return response()->json($service->getUnionId(null, request('code')));
+        } catch (AuthorizeFailedException $e) {
+            $body = $e->body;
+            $response = [
+                'message' => @$body['errmsg'],
+                'errors' => [
+                    'code' => config('wechat.errors.'.@$body['errcode']),
+                    'message' => @$body['errmsg']
+                ]
+            ];
+            return response()->json($response, 500);
+        }
     }
 
 
