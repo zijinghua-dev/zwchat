@@ -15,7 +15,7 @@
     "license": "MIT",
     "minimum-stability": "dev",
     "require": {
-        "overtrue/socialite": "^2.0.16",
+        "overtrue/wechat": "^5.0",
         "nesbot/carbon": "^2.0.0"
     },
     "extra": {
