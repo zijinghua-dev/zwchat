@@ -15,7 +15,7 @@
     "license": "MIT",
     "minimum-stability": "dev",
     "require": {
-        "zijinghua-dev/wechat": "5.0.2",
+        "zijinghua-dev/wechat": "^5.0",
         "nesbot/carbon": "^2.0.0"
     },
     "extra": {
