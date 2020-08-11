@@ -11,7 +11,7 @@ class JssdkController extends \Illuminate\Routing\Controller
         $config = JssdkService::getJssdkConfig(
             request('app_id'),
             explode(',', request('js_apis')),
-            request('url'),
+            request('url')
         );
 
         return response()->json($config);
