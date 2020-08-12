@@ -1,7 +1,5 @@
 #初始化工作
 
-#初始化工作
-
 >(1) 使用php artisan vendor:pulish --provider='Zijinghua\Zwechat\ServiceProvider'发布包
 
 >(2) 根据实际需要，在.env中增加WECHAT_APPS配置，格式如下:
