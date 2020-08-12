@@ -20,7 +20,7 @@ class SnsService extends \Overtrue\Socialite\Providers\WeChatProvider
     {
         $config = \Zijinghua\Zwechat\WechatTrait::getConfigByAppId($appId);
         if (!isset($config['app_secret'])) {
-            throw new \Overtrue\Socialite\InvalidArgumentException('请wechat.php中配置app_id:'.$appId.'对应的app_secret');
+            throw new \Overtrue\Socialite\InvalidArgumentException('请.env的WECHAT_APPS配置项中配置app_id:'.$appId.'对应的app_secret');
         }
         parent::__construct(request(), $appId, $config['app_secret']);
         $this->setAppId($appId);
