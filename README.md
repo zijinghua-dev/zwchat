@@ -1,8 +1,15 @@
 #初始化工作
 
+#初始化工作
+
 >(1) 使用php artisan vendor:pulish --provider='Zijinghua\Zwechat\ServiceProvider'发布包
->(2) 根据实际需要，在config目录下的wechat.php的apps配置中添加你的app_id、app_secret
+
+>(2) 根据实际需要，在.env中增加WECHAT_APPS配置，格式如下:
+
+ > - WECHAT_APPS='[{"app_id":"微信app id","app_secret":"微信app secret"}]'
+ 
 >(3) Zijinghua\Zwechat\Jobs\RefreshAccessToken可用于定时检查、刷新网页授权access_token
+
 >(4) 异常code
  > - invalid_oauth_code:无效的code
  > - invalid_open_id:无效的openid
