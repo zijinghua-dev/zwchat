@@ -1,13 +1,7 @@
 <?php
 return [
     //appid
-    'apps' => [
-        [
-            'app_id' => '',
-            'redirect_uri' => '',
-            'app_secret' => ''
-        ]
-    ],
+    'apps' => json_decode(env('WECHAT_APPS'), true)? json_decode(env('WECHAT_APPS'), true):[],
     'api' => [
         'sns' => 'https://api.weixin.qq.com/sns'
     ],
