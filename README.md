@@ -14,6 +14,7 @@
  > - miss_oauth_code:缺失授权code
 
 #目前提供如下API接口，在使用以下API接口时，依然要执行上述步骤(1)(2)
+
 (1) 接口：获取微信openid，uri：api/zijinghua/wechat/open-id。\
 &emsp;&emsp;请求方式：GET。\
 &emsp;&emsp;请求参数：\
