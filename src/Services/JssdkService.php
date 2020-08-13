@@ -15,11 +15,11 @@ class JssdkService
      * @throws \EasyWeChat\Kernel\Exceptions\RuntimeException
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public static function getJssdkConfig($appId, array $jsApiList, string $url=null)
+    public static function getJssdkConfig($appId, string $url=null, array $jsApiList=[])
     {
         $config = \Zijinghua\Zwechat\WechatTrait::getConfigByAppId($appId);
         if (!is_array($config) || !isset($config['app_secret'])) {
-            throw new \Overtrue\Socialite\InvalidArgumentException('请wechat.php中配置app_id、app_secret');
+            throw new \Overtrue\Socialite\InvalidArgumentException('请按照当前包中README.md的格式，在.env中增加WECHAT_APPS的配置');
         }
 
         $config['response_type'] = 'array';
