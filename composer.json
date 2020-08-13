@@ -16,7 +16,7 @@
     "minimum-stability": "dev",
     "require": {
         "overtrue/wechat": "^4.0",
-        "nesbot/carbon": "^2.0.0"
+        "nesbot/carbon": "^1.0.0 || ^2.0.0"
     },
     "extra": {
         "laravel": {
